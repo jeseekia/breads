@@ -21,6 +21,11 @@ app.get('/', (req, res)=>{
 const breadsController = require('./controllers/bread_controller')
 app.use('/breads', breadsController)
 
+//404 Page
+app.get('*', (req, res) => {
+    res.send('404')
+})
+
 //LISTEN
 app.listen(PORT, () => {
     console.log('Listening on port ', PORT)
