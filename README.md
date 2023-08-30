@@ -3,6 +3,7 @@ This is a project to demo fullstack JavaScript development (MERN)
 
 
 To run this project:
+
 0. ```npm install -g nodemon``` if you don't have this dev tool
 1. Start your MongoDB server if it is not already running
 2. ```npm``` install
