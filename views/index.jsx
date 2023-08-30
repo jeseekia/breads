@@ -7,7 +7,6 @@ function Index ({breads}) {
             <h2>
                 Index Page
             </h2>
-            {/* <p>I have {breads[0].name} bread!</p> */}
             <div className="newButton">
                 <a href="/breads/new"><button>Add a new bread</button></a>
             </div>
@@ -16,7 +15,7 @@ function Index ({breads}) {
                     breads.map((bread, index) => {
                         return (
                             <li key={index}> 
-                                <a href={`/breads/${index}`}>
+                                <a href={`/breads/${bread.id}`}>
                                     {bread.name}
                                 </a>      
                             </li>
