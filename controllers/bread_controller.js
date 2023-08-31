@@ -64,9 +64,15 @@ breads.put('/:arrayIndex', (req, res) => {
     res.redirect(`/breads/${req.params.arrayIndex}`)
 })
 
-breads.delete('/:arrayIndex', (req, res) => {
-    Bread.splice(req.params.arrayIndex, 1)
-    res.status(303).redirect('/breads')
+breads.delete('/:id', (req, res) => {
+    Bread.findByIdAndDelete(req.params.id)
+        .then(deletedBread => {
+            res.status(303).redirect('/breads')
+        })
+        .catch()
+    
+    // Bread.splice(req.params.arrayIndex, 1)
+    // res.status(303).redirect('/breads')
 })
 
 module.exports = breads
