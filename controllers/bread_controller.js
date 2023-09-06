@@ -41,23 +41,30 @@ breads.get('/new', (req, res) => {
 
 breads.get('/:id/edit', (req, res) => {
     console.log("Edit page")
-    Bread.findById(req.params.id)
-        .then(foundBread => {
-            res.render('edit', {
-                bread: foundBread
-            })
+    console.log("REQ.PARAMS.ID"+req.params.id)
+    Baker.find()
+        .then(foundBakers => {
+            Bread.findById(req.params.id)
+                .then(foundBread => {
+                    res.render('edit', {
+                        bread: foundBread,
+                        bakers: foundBakers
+                    })
+                })
         })
 })
 
 breads.get('/:id', (req, res) => {
     Bread.findById(req.params.id)
+        .populate('baker')
         .then(foundBread => {
-            const bakedBy = foundBread.getBakedBy()
-            console.log(bakedBy)
+            // const bakedBy = foundBread.getBakedBy()
+            // console.log(bakedBy)
             res.render('show', {
                 bread: foundBread
             })
         }).catch(err => {
+            console.log(err)
             res.status(404).render('404')
         })
 })
