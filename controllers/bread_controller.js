@@ -16,10 +16,7 @@ breads.get('/', (req, res) => {
                 })
             })
         }
-    )
-
-
-    
+    )  
 })
 
 // CREATE
