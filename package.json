@@ -1,9 +1,6 @@
 {
   "name": "breads",
   "version": "1.0.0",
-  "engines": {
-    "node": "18.17.1"
-  },
   "description": "This is a CRUD app for managing bread records.",
   "main": "server.js",
   "scripts": {
