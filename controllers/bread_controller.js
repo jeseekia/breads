@@ -2,22 +2,35 @@ const express = require('express')
 const breads = express.Router()
 const Bread = require('../models/bread.js')
 const Baker = require('../models/baker.js')
+const mongoose = require('mongoose')
 
 //INDEX
 breads.get('/', (req, res) => {
-    Baker.find().then(
-        foundBakers => {
-            Bread.find()
-            .then(foundBreads => {
-                // res.render('index', {
-                //     breads: foundBreads,
-                //     title: 'Index Page',
-                //     bakers: foundBakers
-                // })
-                res.json(foundBreads)
-            })
-        }
-    )  
+    // Baker.find().then(
+    //     foundBakers => {
+    //         Bread.find()
+    //         .then(foundBreads => {
+    //             // res.render('index', {
+    //             //     breads: foundBreads,
+    //             //     title: 'Index Page',
+    //             //     bakers: foundBakers
+    //             // })
+    //             res.json(foundBreads)
+    //         })
+    //     }
+    // )
+    let filter = {}
+    console.log("Baker:" + req.query.baker)
+    if (req.query.baker) {
+        filter.baker = req.query.baker
+    }
+
+    Bread.find(filter)
+        .populate('baker')
+        .then(foundBreads => {
+            res.json(foundBreads)
+        })
+
 })
 
 // CREATE
