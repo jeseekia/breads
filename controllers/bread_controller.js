@@ -9,11 +9,12 @@ breads.get('/', (req, res) => {
         foundBakers => {
             Bread.find()
             .then(foundBreads => {
-                res.render('index', {
-                    breads: foundBreads,
-                    title: 'Index Page',
-                    bakers: foundBakers
-                })
+                // res.render('index', {
+                //     breads: foundBreads,
+                //     title: 'Index Page',
+                //     bakers: foundBakers
+                // })
+                res.json(foundBreads)
             })
         }
     )  
@@ -30,16 +31,18 @@ breads.post('/', (req, res) => {
       req.body.hasGluten = false
     }
     Bread.create(req.body)
-    res.redirect('/breads')
+    // res.redirect('/breads')
+    res.json({message: "Created"})
   })
   
 
 breads.get('/new', (req, res) => {
     Baker.find()
         .then(foundBakers => {
-            res.render('new', {
-                bakers: foundBakers
-            })
+            // res.render('new', {
+            //     bakers: foundBakers
+            // })
+            res.json(foundBakers)
         })
     
 })
@@ -51,10 +54,11 @@ breads.get('/:id/edit', (req, res) => {
         .then(foundBakers => {
             Bread.findById(req.params.id)
                 .then(foundBread => {
-                    res.render('edit', {
-                        bread: foundBread,
-                        bakers: foundBakers
-                    })
+                    // res.render('edit', {
+                    //     bread: foundBread,
+                    //     bakers: foundBakers
+                    // })
+                    res.json(foundBread)
                 })
         })
 })
@@ -65,9 +69,10 @@ breads.get('/:id', (req, res) => {
         .then(foundBread => {
             // const bakedBy = foundBread.getBakedBy()
             // console.log(bakedBy)
-            res.render('show', {
-                bread: foundBread
-            })
+            // res.render('show', {
+            //     bread: foundBread
+            // })
+            res.json(foundBread)
         }).catch(err => {
             console.log(err)
             res.status(404).render('404')
@@ -86,7 +91,8 @@ breads.put('/:id', (req, res) => {
     Bread.findByIdAndUpdate(req.params.id, req.body, { new: true })
         .then(updatedBread => {
             console.log(updatedBread)
-            res.redirect(`/breads/${req.params.id}`)
+            // res.redirect(`/breads/${req.params.id}`)
+            res.json(updatedBread)
         })
         .catch(err => {
             res.status(404).render('404')
@@ -99,7 +105,8 @@ breads.put('/:id', (req, res) => {
 breads.delete('/:id', (req, res) => {
     Bread.findByIdAndDelete(req.params.id)
         .then(deletedBread => {
-            res.status(303).redirect('/breads')
+            // res.status(303).redirect('/breads')
+            res.status(303).json(deletedBread)
         })
         .catch()
     
