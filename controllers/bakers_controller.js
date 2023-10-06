@@ -3,9 +3,18 @@ const baker = express.Router()
 const Baker = require('../models/baker.js')
 const bakerSeedData = require('../models/baker_seed.js')
 
+
+// ** GET      /bakers?id=<baker_id> **
+
 //Index
 baker.get('/', (req, res) => {
-    Baker.find()
+    let filter = {}
+    console.log(req.query.id)
+    if(req.query.id) {
+        filter._id = req.query.id
+    }
+    // filter.id ? req.query.id : null
+    Baker.find(filter)
         .populate('breads')
         .then(foundBakers => {
             res.json(foundBakers)
